@@ -1,0 +1,34 @@
+<view class="container">  
+  <view class='logo_icon'>
+    <image class="logo_icon_img input-icon" src="../../image/new/login_logo.png"></image>  
+  </view>
+  <view class='login-title'> 移动院感</view>
+      
+  <view class="login-from">  
+    <form onSubmit="formSubmit" >
+      <!--账号-->  
+      <view class="inputView">  
+        <image class="nameImage" src="../../image/account.png"></image>  
+        <label class="loginLab">账号</label>  
+            <input class="inputText" placeholder="请输入登录账号"  name="phone" value="{{phoneV}}" onBlur="phoneText"/>
+      </view>  
+    
+      <!--密码-->  
+      <view class="inputView">  
+        <image class="keyImage input-icon" src="../../image/passwd.png"></image>  
+        <label class="loginLab">密码</label>  
+            <input class="inputText" password="true" placeholder="请输入密码" name="passwd" value="{{passwordV}}" onBlur="passwordText"/> 
+      </view> 
+
+      <view id="setNetView">  
+        <!-- <button id="setNetViewBtn">进行网络配置</button>   -->
+      </view> 
+
+      <!--按钮-->  
+      <view class="loginBtnView">  
+        <button class="loginBtn" formType="submit">登录</button>  
+      </view> 
+    </form>
+     <!-- <view class='forget-psd'>忘记密码?联系管理员→</view> -->
+  </view>  
+</view>  

@@ -1,0 +1,29 @@
+<view class="section list">
+  
+  <view class="page-section">
+    <view class="userImg">
+        <!-- <image src="/image/new/ys.png" mode="aspectFill"> -->
+    </view>
+    <view class="form-row2">  
+       <text class="form-row-text">{{name}}</text>
+       <view>{{ksmc}}  </view>     
+    </text>
+    </view>
+
+  </view>
+  
+  <view class='form-row'>
+      <view class="form-row-label">软件版本
+      </view>
+      <view class="form-row-labelRight"  onTap="showMes">信息收集
+      </view>
+  </view>
+
+  <view class='form-row'>
+      <view class="form-row-label">V1.0
+      </view>
+  </view>
+  <view class='btn-box'>
+    <button class='logout' onTap='logout'>注销</button>
+  </view>
+</view>  

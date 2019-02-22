@@ -1,0 +1,99 @@
+.list{
+  font-size: 34rpx;
+  border-top:2rpx solid #ddd;
+}
+.list-item{
+  padding: 20rpx 28rpx;
+  border-bottom:2rpx solid #ddd;
+}
+.item-value{
+  color: #999;
+}
+.nav{
+  width: 700rpx;
+}
+.nav-icon{
+  width: 32rpx;
+  height: 32rpx;
+  margin-top: 6rpx;
+}
+
+.userImg{
+    margin-top:50rpx;
+    margin-left: 30rpx;
+   background:url( '/image/new/ys.png') no-repeat ;
+    width: 100rpx;
+    height: 100rpx;
+}
+
+.page-section{
+   padding: 20rpx 28rpx;
+   background-color: #5B9CF8;
+   height: 250rpx;
+}
+
+.form-row{
+    /* width:600; */
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.form-row2{
+    margin-top: -90rpx;
+    margin-left: 90px;
+    width:250rpx;
+    color:#ffffff;
+
+}
+.form-row-label{
+      margin-top: 20rpx;
+}
+
+.form-row-labelRight{
+      margin-top: 20rpx;
+      margin-right: 0px;
+      text-align: right;
+      width:100%;
+      font-size: 26rpx;
+}
+
+.form-row-text{
+   margin-top: -180rpx;
+     width: 250rpx;
+}
+.logout,.goBack{
+  background-color: #fff;
+  font-size: 34rpx;
+  width: 95%;
+  margin: 60rpx auto;
+}
+.logout{
+ background-color: #5B9CF8;
+  color: #fff;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+}
+
+.row-title {
+  flex: 1;
+  padding-top: 28rpx;
+  padding-bottom: 28rpx;
+  font-size: 34rpx;
+  color: #000;
+}
+
+.row-extra {
+  flex-basis: initial;
+  font-size: 32rpx;
+  color: #888;
+}
+
+.row-arrow {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 16rpx;
+}

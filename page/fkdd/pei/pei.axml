@@ -1,0 +1,9 @@
+<view>
+<web-view src= {{htmlUrla}}> </web-view>
+ <!-- <web-view src="..\html\Echar.html"></web-view>  -->
+<!-- <view class="container">
+  <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}" bindinit="echartInit"></ec-canvas>
+</view> -->
+</view>
+
+

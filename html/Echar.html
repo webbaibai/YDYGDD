@@ -1,0 +1,470 @@
+
+<!-- saved from url=(0129)file:///C:/Users/LENOVO/Desktop/%E7%A7%BB%E5%8A%A8%E9%99%A2%E6%84%9F-%E6%89%8B%E5%8D%AB%E7%94%9F%EF%BC%880514%EF%BC%89/Echar.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><header>
+			<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.4.0/echarts.common.js "></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=1.0, user-scalable=no">
+		<style>
+			@media screen and (min-width:350px ) {  
+			 *{margin:0;
+			 padding:0;
+			 list-style:none
+			}
+			body{height:100%;width:100%}
+			#container{
+				margin:0 auto;
+				overflow:hidden;
+				width:100%;
+				height:100%;
+				background-color:#F5F5F9;
+				min-height:700px;
+			}
+			#BQ{height:23%;background:#FFFFFF;
+				margin:0 0 2% 0;
+				z-index:100;
+				overflow:hidden;
+				}
+			#BQ div{height:38px;
+			margin:0 4% 0 4%;
+			border:1px solid #ccc;
+			}
+			#BQ div input{
+			  padding-left:2%;
+		      outline:none;
+			  border:transparent;
+			  width:80%;
+			  height:100%;  
+			}	
+			#BQ i{float:right;
+				display:inline-block;
+				width:20%;
+				margin:2% 2% 0 0;
+				z-index:5555;
+				background-image: url(22.png);
+				background-repeat: no-repeat; 
+				background-position: 0px 0px; 
+				width: 10%; 
+				height: 100%; 
+				}
+			ul{
+				background:#fff;
+				width:100%;
+				height:100px;
+				position:absolute;  
+				z-index:9999;
+				margin-top:1px;
+				overflow-x: hidden;
+				overflow-y: auto;	
+				display:none;				
+				}
+			ul li{
+				margin-right: -15px; 
+				background:#fff;
+				height:30%;
+				width:94%;
+				border-right:1px solid #ccc;
+				border-bottom:1px solid #ccc;
+				border-left:1px solid #ccc;
+				
+				}
+			ul li:hover{background:#DDF3FF}
+			table{
+				width:91%;
+				height:54%; 
+				line-height: 25px;
+				text-align: center;
+				border-collapse: collapse;
+				cellpadding:2;
+				cellspacing:0;
+				margin:4% 0 0 4% ;				
+			}				
+			table, table tr td { border:1px solid #ccc; font-size:13px;padding:2px;border-radius:2px;}
+			tr,td{ 			
+				height:50px; 
+				width:20%
+				} 
+		
+			.CHAR{background-color:#F5F5F9;
+				width:100%; 
+				height:79%;}
+			#GW,#YC{
+				width:100%;overflow:hidden;width:100%;background:#FFFFFF 
+			} 
+			#YC{margin:2% 0 2% 0}
+			#GW div:first-Child,#YC div:first-Child{
+					padding:1%;
+					width:100%; 
+					height: 2.3%;
+					}	
+			#GW div:first-Child i,#YC div:first-Child i{display:inline-block;
+				width:5px;
+				line-height:3px;
+				margin-left:5%;
+				height:15px;
+				background-color:#6698FF
+				}
+			#GW div:first-Child strong,#YC div:first-Child strong{
+				line-height:20px
+				}
+			#chartmain,	#chartmain2{
+				padding:10px;
+				overflow:hidden;
+				width:100%;
+				height:40%;
+				}
+			}
+		</style>
+	</header>
+	
+		<div id="container">
+			<div id="BQ">
+				<!--病区选项菜单栏-->
+				<div>
+					<input id="sel" value="重症监护室" readonly="">
+					 <i id="btn" onclick="select()"></i>
+					
+				</div>
+				<!--岗位依从性-正确率-->
+				<table>
+					<tbody><tr>
+						<td>时机</td>
+						<td>洗手次数</td>
+						<td>依存性</td>
+						<td>正确性</td>
+						<td>正确率</td>
+					</tr><tr id="zqlTr">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr><tr>
+				</tr></tbody></table>
+			</div>
+			
+			<div class="CHAR col-sm-3" style="">
+				<!--岗位依从性-正确率-->
+				<div id="GW">
+					<div>
+						<i></i>
+						<strong>岗位依从性-正确率</strong>
+					</div>
+					<div id="chartmain"></div>
+				</div>
+				<!--指针依存性-正确率-->
+				<div id="YC">
+					<div>
+						<i></i>
+						<strong>指针依存性-正确率</strong>
+					</div>
+					<div id="chartmain2"></div>
+				</div>
+			</div>
+		</div>
+				<div id="qrcodeCanvas"></div>
+	
+
+		<script>
+		jQuery('#qrcodeCanvas').qrcode({
+			width   : 300,
+			height  : 300,
+			text    : "http://172.16.0.134:8787/Echar.html"
+		}); 
+		</script>	
+    <script type="text/javascript">	
+		window.onload=function(){
+			var INT=document.getElementById("sel"); 
+			//var data = window.Android.getAllDepartment();  
+			var data =  "234=重症监护室"+","+"103=心血管一科"+","+"104=心血管二科"
+			+",105=急诊内科"+",106=神经内科"+",1061=神经内门诊二"+",107=老干二科"+",108=老干一科"
+			 +",109=呼吸一科";
+			 var list=data.split(","); 
+			 var ksmclist=[]; 
+			 var ksdmlist=[];			   
+			 for(var i=0;i<list.length;i++){  
+				 var ksdm = list[i].split("=")[0]; 
+				 var ksmc = list[i].split("=")[1]; 
+				 ksmclist.push(ksmc); 
+				 ksdmlist.push(ksdm);				  
+				}; 
+				char(234); 
+			for(var i=0;i<ksdmlist.length;i++){ 
+				 if(INT.value.charCodeAt(0)==ksmclist[i].charCodeAt(0)){	 
+					 var ksId=ksdmlist[i]; 
+					 char(ksId); 
+				 } 
+			 } 		
+		   };
+		function select(){
+			 //var data = window.Android.getAllDepartment(); 
+			 var data =  "234=重症监护室"+","+"103=心血管一科"+","+"104=心血管二科"
+			+",105=急诊内科"+",106=神经内科"+",1061=神经内门诊二"+",107=老干二科"+",108=老干一科"
+			 +",109=呼吸一科";
+			 var list=data.split(",");
+			  var ksmclist=[];
+			  var ksdmlist=[];			  
+			  for(var i=0;i<list.length;i++){ 
+			    var ksdm = list[i].split("=")[0];
+				var ksmc = list[i].split("=")[1];
+				ksdmlist.push(ksdm);
+                ksmclist.push(ksmc);
+				}
+			 var Btn = document.getElementById('btn'); 
+			 var Sel= document.getElementById('sel'); 
+			 var odiv=Btn.parentNode; 
+			 var LI=document.getElementsByTagName('li'); 
+			 var UL=document.getElementsByTagName('ul');			 
+			 if(LI.length>0){ 
+				odiv.childNodes[4].remove();
+				 } 
+			 else{	 
+				 var ul = document.createElement('ul'); 
+				 for(var i=0;i<ksmclist.length;i++){ 
+					 var li = document.createElement('li'); 
+						 ul.appendChild(li); 
+						 li.innerHTML=ksmclist[i]; 
+						 li.style.padding="3px";			 
+							 }	
+					 odiv.appendChild(ul);
+					ul.style.display="block";
+				ul.addEventListener("click",function(event){
+				var el= event.target || event.srcElement; 
+				if(el.nodeName.toLowerCase()=="li"){
+						var INT=document.getElementById("sel");
+						INT.value=el.innerHTML;
+						odiv.childNodes[4].remove();
+						for(var i=0;i<ksdmlist.length;i++){
+							if(el.innerHTML==ksmclist[i]){	
+								var ksId=ksdmlist[i];
+								//返回参数ksID到安卓
+								// window.AndroidWebView.showInfoFromJs(ksid)
+								char(ksId);
+							}
+						}					
+					}
+				
+				},false);
+					 }	
+		};	
+		
+	function char(ksId){
+		//生成图表数据yc，gw
+		var yc=[];
+		var gw=[];
+		//获取安卓返回的数据
+		//var ksList=window.Android.getAnalysisData(ksId);
+		var ksList={"success":true,"data":[{"LBMC":"总计","LBBZ":"0","YZCS":"11","SZCS":"11","ZQCS":"11","YCL":"100.0","ZQL":"100.0"},
+		{"LBMC":"接触患者前","LBBZ":"1","YZCS":"3","SZCS":"3","ZQCS":"3","YCL":"100.0","ZQL":"100.0"},
+		{"LBMC":"接触患者后","LBBZ":"1","YZCS":"2","SZCS":"2","ZQCS":"2","YCL":"100.0","ZQL":"100.0"},
+		{"LBMC":"进行无菌操作前","LBBZ":"1","YZCS":"0","SZCS":"0","ZQCS":"0","YCL":"0.0","ZQL":"0.0"},
+		{"LBMC":"体液暴露后","LBBZ":"1","YZCS":"0","SZCS":"0","ZQCS":"0","YCL":"0.0","ZQL":"0.0"},
+		{"LBMC":"接触患者周围环境后","LBBZ":"1","YZCS":"0","SZCS":"0","ZQCS":"0","YCL":"0.0","ZQL":"0.0"},
+		{"LBMC":"医生","LBBZ":"2","YZCS":"6","SZCS":"4","ZQCS":"3","YCL":"66.7","ZQL":"75.0"},
+		{"LBMC":"护士","LBBZ":"2","YZCS":"4","SZCS":"3","ZQCS":"2","YCL":"75.0","ZQL":"66.7"},
+		{"LBMC":"清洁工","LBBZ":"2","YZCS":"1","SZCS":"1","ZQCS":"1","YCL":"100.0","ZQL":"100.0"},
+		{"LBMC":"实习护士","LBBZ":"2","YZCS":"0","SZCS":"0","ZQCS":"0","YCL":"0.0","ZQL":"0.0"},
+		{"LBMC":"医技","LBBZ":"2","YZCS":"0","SZCS":"0","ZQCS":"0","YCL":"0.0","ZQL":"0.0"},
+		{"LBMC":"测试医生1","LBBZ":"2","YZCS":"0","SZCS":"0","ZQCS":"0","YCL":"0.0","ZQL":"0.0"}],"message":null,"code":0};
+		console.log(ksList.data);
+		for(var i=0;i<ksList.data.length;i++){ 
+			if(ksList.data[i].LBBZ==1) 
+				 {gw.push(ksList.data[i].ZQL);
+				 console.log(gw);
+				 }; 
+			if(ksList.data[i].LBBZ==2) 
+				 {yc.push(ksList.data[i].ZQL);};
+			var zqlTr=document.getElementById("zqlTr");
+			var zqlTd=zqlTr.getElementsByTagName("td") 			
+			if(ksList.data[i].LBBZ==0) {
+						zqlTd[0].innerHTML=ksList.data[i].YZCS;
+						zqlTd[1].innerHTML=ksList.data[i].SZCS;
+						zqlTd[2].innerHTML=ksList.data[i].ZQCS;
+						zqlTd[3].innerHTML=ksList.data[i].YCL;
+						zqlTd[4].innerHTML=ksList.data[i].ZQL;						
+					}
+				}			 
+        //指定图标的配置和数据
+		 var option = {
+            tooltip:{},
+            grid: {
+			top:'5%',
+			left: '15%',  
+			right: '10%',  
+			bottom: '10%',  
+			containLabel: false  
+			},  
+            xAxis:[{
+                
+				axisTick: {
+					show: false
+				},
+				splitLine:{  
+                   　　show:false  
+                },
+				data:["医生","护士","清洁工","实习护士","医技"],
+				axisLabel: {
+				 textStyle: {
+                             color: ' #666666'
+                            }
+				},				
+				axisLine:{
+                lineStyle:{
+                    color:' #8AD6FF',
+                    width:0.5
+					}
+				}	
+            }],
+            yAxis:{
+				axisTick: {
+					show: false
+				},
+				axisLabel: {
+				 textStyle: {
+                             color: ' #666666'
+                            },
+                formatter: '{value} %'
+				},				
+				splitLine: {
+                show: true,
+                lineStyle:{
+                     width: 0.5,
+                     type: 'dashed'
+					}
+				},
+				axisLine:{
+                lineStyle:{
+                    color:' #fff',
+                    width:0.5
+					}
+				}					
+				
+            },
+            series:[{
+                name:'正确率',
+                type:'bar',
+                data:gw,
+				itemStyle:{
+                       normal:{
+                       color:'#B9E6FF'
+                       }
+               },
+			   barCategoryGap:20
+						   
+            }]
+        };
+        var option2 = {        
+            tooltip:{},
+            grid: {
+			top:'5%',			
+			left: '15%',  
+			right: '10%',  
+			bottom: '10%',  
+			containLabel: false  
+			},  
+            xAxis:{
+                data:["接触患者前","接触患者后","进行无菌操作","体液暴露后","接触患者周围环境后"],
+				axisTick: {
+					show: false
+				},
+				splitLine:{  
+                   　　show:false  
+                }, 	
+				itemStyle:{
+                       normal:{
+                       color:'#ddd'
+                       }
+               },
+				axisLabel: {
+				 textStyle: {
+                             color: ' #666666'
+                            },
+				interval : 0,			
+				formatter : function(params){
+                                    var newParamsName = "";
+                                    var paramsNameNumber = params.length;
+                                    var provideNumber = 3;
+                                    var rowNumber = Math.ceil(paramsNameNumber / provideNumber);
+                                    if (paramsNameNumber > provideNumber) {
+                                        for (var p = 0; p < rowNumber; p++) {
+                                            var tempStr = "";
+                                            var start = p * provideNumber;
+                                            var end = start + provideNumber;
+                                            if (p == rowNumber - 1) {
+                                                tempStr = params.substring(start, paramsNameNumber);
+                                            } else {
+                                                tempStr = params.substring(start, end) + "\n";
+                                            }
+                                            newParamsName += tempStr;
+                                        }
+
+                                    } else {
+                                        newParamsName = params;
+                                    }
+                                    return newParamsName
+                                },
+				},
+				axisLine:{
+                lineStyle:{
+                    color:' #8AD6FF',
+                    width:0.5
+					}
+				}				
+            },
+            yAxis:{
+				axisTick: {
+					show: false
+				},
+				axisLabel: {
+				 textStyle: {
+                             color: ' #666666'
+                            },
+                formatter: '{value} %'
+				},
+				splitLine: {
+					show: true,
+					lineStyle:{
+						 width: 0.5,
+						 type: 'dashed'
+						}
+				},
+				axisLine:{
+                lineStyle:{
+                    color:' #fff',
+                    width:0.5
+					}
+				},
+				
+            },
+            series:[{
+                name:'正确率',
+                type:'line',
+                data:yc,
+				itemStyle:{
+                       normal:{
+                       color:'#6698FF'
+                       }
+				
+               },
+            areaStyle: {normal: {  
+                                color: new echarts.graphic.LinearGradient(  
+                                        0, 0, 0, 1,  
+                                        [  
+                                            {offset: 0, color: '#B9E6FF'},  
+                                            {offset: 0.5, color: '#DDF3FF'},  
+                                            {offset: 1, color: '#F3FBFF'}  
+                                        ]  
+                                )  
+                            }},   
+            }]
+        };  
+		//初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+		var myChart = echarts.init(document.getElementById('chartmain2'));
+		myChart.setOption(option2);			
+		}     
+    </script>
+
+</body></html>

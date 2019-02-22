@@ -1,0 +1,7 @@
+
+
+<view>
+<web-view src= {{htmlUrl}}></web-view>
+ <!-- <web-view src="..\html\Echar.html"></web-view>  -->
+
+</view>
